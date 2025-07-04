@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Color Gallery</title>
+    <title>PLA Color Gallery</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,6 +34,9 @@
             font-weight: bold;
             color: #333;
         }
+        .not-available {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -41,7 +44,7 @@
     <div class="gallery" id="gallery"></div>
 
     <script>
-        // Array of your images
+        // List all images here
         const images = [
             "PLA_Matte-Desert-Tan.png",
             "PLA_Matte-Ice-Blue.png",
@@ -57,19 +60,28 @@
             // Add more filenames here
         ];
 
+        // List images marked as 'Not Available' here
+        const notAvailable = [
+            "PLA_Pumpkin-Orange.png"
+        ];
+
         const gallery = document.getElementById('gallery');
 
         images.forEach(file => {
             const colorName = file.replace('PLA_', '').replace('.png', '').replaceAll('_', ' ');
-            
+
+            const isNotAvailable = notAvailable.includes(file);
+
             const item = document.createElement('div');
             item.className = 'item';
-            
+
             item.innerHTML = `
                 <img src="images/${file}" alt="${colorName}">
-                <div class="caption">${colorName}</div>
+                <div class="caption ${isNotAvailable ? 'not-available' : ''}">
+                    ${isNotAvailable ? 'Not Available' : colorName}
+                </div>
             `;
-            
+
             gallery.appendChild(item);
         });
     </script>
